@@ -7,6 +7,7 @@ import (
 	"strconv"
 	validator "gopkg.in/go-playground/validator.v9"
 )
+
 type ResponseError struct {
 	Message string `json:"message"`
 }
