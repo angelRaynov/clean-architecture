@@ -1,0 +1,33 @@
+version: '3'
+services:
+  web:
+    image: golang:latest
+    container_name: clean-architecture
+    working_dir: /go/src/clean-architecture
+    tty: true
+    ports:
+      - 9090:9090
+#    depends_on:
+#      mysql:
+#        condition: service_healthy
+    volumes:
+      - ${HOME}/Development/clean-architecture:/go/src/clean-architecture
+
+#  mysql:
+#    image: mysql:5.7
+#    platform: linux/x86_64
+#    container_name: go_clean_arch_mysql
+#    command: mysqld --user=root
+#    volumes:
+#      - .docker/mysql/article.sql:/docker-entrypoint-initdb.d/init.sql
+#    ports:
+#      - 3306:3306
+#    environment:
+#      - MYSQL_DATABASE=article
+#      - MYSQL_USER=user
+#      - MYSQL_PASSWORD=password
+#      - MYSQL_ROOT_PASSWORD=root
+#    healthcheck:
+#      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+#      timeout: 5s
+#      retries: 10
