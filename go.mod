@@ -4,6 +4,7 @@ go 1.17
 
 require (
 	github.com/labstack/echo v3.3.10+incompatible
+	golang.org/x/sync v0.0.0-20220722155255-886fb9371eb4
 	gopkg.in/go-playground/validator.v9 v9.31.0
 )
 
