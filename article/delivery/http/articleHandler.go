@@ -3,9 +3,9 @@ package http
 import (
 	"github.com/angelRaynov/clean-architecture/domain"
 	"github.com/labstack/echo"
+	validator "gopkg.in/go-playground/validator.v9"
 	"net/http"
 	"strconv"
-	validator "gopkg.in/go-playground/validator.v9"
 )
 
 type ResponseError struct {
@@ -125,8 +125,8 @@ func isValidRequest(a *domain.Article) (bool, error) {
 	validate := validator.New()
 	err := validate.Struct(a)
 	if err != nil {
-		return false,err
+		return false, err
 	}
 
-	return true,nil
+	return true, nil
 }

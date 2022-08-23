@@ -1,4 +1,4 @@
-package mysql
+package db
 
 import (
 	"context"
@@ -17,9 +17,9 @@ func NewAuthorRepository(db *sql.DB) domain.AuthorRepository {
 }
 
 func (a *authorRepo) getOne(ctx context.Context, query string, args ...interface{}) (domain.Author, error) {
-	stmt, err := a.DB.PrepareContext(ctx,query)
+	stmt, err := a.DB.PrepareContext(ctx, query)
 	if err != nil {
-		return domain.Author{},err
+		return domain.Author{}, err
 	}
 
 	row := stmt.QueryRowContext(ctx, args...)
@@ -31,7 +31,7 @@ func (a *authorRepo) getOne(ctx context.Context, query string, args ...interface
 		&res.Name,
 		&res.CreatedAt,
 		&res.UpdatedAt,
-		)
+	)
 
 	return res, err
 }

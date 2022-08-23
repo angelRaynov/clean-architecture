@@ -4,20 +4,20 @@ import (
 	"context"
 	"github.com/angelRaynov/clean-architecture/domain"
 	"github.com/labstack/gommon/log"
-	"time"
 	"golang.org/x/sync/errgroup"
+	"time"
 )
 
 type articleUseCase struct {
-	articleRepo domain.ArticleRepository
-	authorRepo domain.AuthorRepository
+	articleRepo    domain.ArticleRepository
+	authorRepo     domain.AuthorRepository
 	contextTimeout time.Duration
 }
 
 func NewArticleUseCase(a domain.ArticleRepository, ar domain.AuthorRepository, timeout time.Duration) domain.ArticleUseCase {
 	return &articleUseCase{
-		articleRepo: a,
-		authorRepo: ar,
+		articleRepo:    a,
+		authorRepo:     ar,
 		contextTimeout: timeout,
 	}
 }
@@ -27,20 +27,20 @@ func (a articleUseCase) Fetch(ctx context.Context, cursor string, num int64) ([]
 		num = 10
 	}
 
-	ctx, cancel := context.WithTimeout(ctx,a.contextTimeout)
+	ctx, cancel := context.WithTimeout(ctx, a.contextTimeout)
 	defer cancel()
 
-	res, nextCursor, err := a.articleRepo.Fetch(ctx,cursor,num)
+	res, nextCursor, err := a.articleRepo.Fetch(ctx, cursor, num)
 	if err != nil {
 		return nil, "", err
 	}
 
-	res, err = a.fillAuthorDetails(ctx,res)
+	res, err = a.fillAuthorDetails(ctx, res)
 	if err != nil {
 		nextCursor = ""
 	}
 
-	return res,nextCursor, err
+	return res, nextCursor, err
 }
 
 func (a articleUseCase) GetByID(ctx context.Context, id int64) (domain.Article, error) {
@@ -77,7 +77,7 @@ func (a articleUseCase) GetByTitle(ctx context.Context, title string) (domain.Ar
 
 	res, err := a.articleRepo.GetByTitle(ctx, title)
 	if err != nil {
-		return domain.Article{},err
+		return domain.Article{}, err
 	}
 
 	resAuthor, err := a.authorRepo.GetByID(ctx, res.Author.ID)
@@ -166,5 +166,5 @@ func (a *articleUseCase) fillAuthorDetails(c context.Context, data []domain.Arti
 		}
 	}
 
-	return data,nil
+	return data, nil
 }
