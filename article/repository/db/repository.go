@@ -190,7 +190,7 @@ func (ar *articleRepository) Delete(ctx context.Context, id int64) error {
 	return err
 }
 
-func newArticleRepository(db *sql.DB) domain.ArticleRepository {
+func NewArticleRepository(db *sql.DB) domain.ArticleRepository {
 	return &articleRepository{
 		DB: db,
 	}
